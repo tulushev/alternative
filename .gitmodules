@@ -1,3 +1,6 @@
 [submodule "rust-gpu"]
 	path = rust-gpu
 	url = https://github.com/Rust-GPU/rust-gpu
+[submodule "SPIRV-Cross"]
+	path = SPIRV-Cross
+	url = https://github.com/KhronosGroup/SPIRV-Cross
