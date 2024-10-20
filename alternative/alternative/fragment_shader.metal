@@ -1,64 +1,28 @@
 #include <metal_stdlib>
 #include <simd/simd.h>
+#include "ShaderTypes.h"
 
 using namespace metal;
 
-struct _11
-{
-    float2 _m0;
-    float _m1;
+// Output color struct for the fragment shader
+struct FragmentOut {
+    float4 color [[color(0)]];
 };
 
-struct _13
-{
-    _11 _m0;
-};
+// Fragment shader
+fragment FragmentOut main_fs(constant ShaderState& state [[buffer(0)]], float4 fragCoord [[position]]) {
+    FragmentOut out;
 
-struct main_fs_out
-{
-    float4 m_3 [[color(0)]];
-};
+    // Adjust fragment coordinates using zoom and translation
+    float2 adjustedPosition = fragCoord.xy * state.zoomLevel + state.translation;
 
-fragment main_fs_out main_fs(constant _13& _12 [[buffer(0)]], float4 gl_FragCoord [[position]])
-{
-    main_fs_out out = {};
-    float _52 = fma(gl_FragCoord.x, _12._m0._m1, _12._m0._m0.x);
-    float _54 = fma(gl_FragCoord.y, _12._m0._m1, _12._m0._m0.y);
-    bool _60;
-    if (_52 > 100.0)
-    {
-        _60 = true;
+    // Check if the fragment is inside or outside the region
+    if (adjustedPosition.x > 100.0 || adjustedPosition.x < -100.0 ||
+        adjustedPosition.y > 100.0 || adjustedPosition.y < -100.0) {
+        out.color = float4(0.0, 0.0, 0.0, 1.0); // Outside region
+    } else {
+        out.color = float4(1.0, 1.0, 1.0, 1.0); // Inside region
     }
-    else
-    {
-        _60 = _52 < (-100.0);
-    }
-    bool _65;
-    if (_60)
-    {
-        _65 = true;
-    }
-    else
-    {
-        _65 = _54 > 100.0;
-    }
-    bool _70;
-    if (_65)
-    {
-        _70 = true;
-    }
-    else
-    {
-        _70 = _54 < (-100.0);
-    }
-    if (_70)
-    {
-        out.m_3 = float4(0.0, 0.0, 0.0, 1.0);
-    }
-    else
-    {
-        out.m_3 = float4(1.0);
-    }
+
     return out;
 }
-

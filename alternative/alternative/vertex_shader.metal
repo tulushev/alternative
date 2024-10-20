@@ -3,26 +3,19 @@
 
 using namespace metal;
 
-struct _11
-{
-    float2 _m0;
-    float _m1;
+struct VertexOut {
+    float4 position [[position]];
 };
 
-struct _13
-{
-    _11 _m0;
-};
+// Vertex shader for generating a full-screen triangle
+vertex VertexOut main_vs(uint vertex_id [[vertex_id]]) {
+    VertexOut out;
 
-struct main_vs_out
-{
-    float4 gl_Position [[position]];
-};
+    // Calculate the position for the full-screen triangle
+    float2 uv = float2(((vertex_id << 1) & 2), (vertex_id & 2));
+    float2 pos = 2.0 * uv - float2(1.0);
 
-vertex main_vs_out main_vs(uint gl_VertexIndex [[vertex_id]])
-{
-    main_vs_out out = {};
-    out.gl_Position = float4(fma(2.0, float((int(gl_VertexIndex) << 1) & 2), -1.0), fma(2.0, float(int(gl_VertexIndex) & 2), -1.0), 0.0, 1.0);
+    // Set the position for the vertex
+    out.position = float4(pos, 0.0, 1.0);
     return out;
 }
-
