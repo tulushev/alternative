@@ -1,6 +1,6 @@
 #![cfg_attr(target_arch = "spirv", no_std)]
 
-use spirv_std::glam::{vec2, vec4, Vec2, Vec4};
+use spirv_std::glam::{vec2, vec4, Vec2, Vec4, Vec4Swizzles};
 use spirv_std::spirv;
 
 const WHITE: Vec4 = vec4(1.0, 1.0, 1.0, 1.0);
@@ -18,8 +18,7 @@ pub fn main_fs(
     #[spirv(push_constant)] constants: &ShaderState,
     output: &mut Vec4,
 ) {
-    let frag_coord = vec2(in_frag_coord.x, in_frag_coord.y);
-    let adjusted_position = frag_coord * constants.zoom_level + constants.translation;
+    let adjusted_position = in_frag_coord.xy() * constants.zoom_level + constants.translation;
 
     *output = make_ui().color(adjusted_position);
 }
