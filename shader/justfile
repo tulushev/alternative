@@ -1,0 +1,4 @@
+build:
+	cargo build --release
+	/Users/tulushev/Source/SPIRV-Cross/spirv-cross --msl --entry main_fs /Users/tulushev/Source/RainbowBridge/Metal/shader/target/spirv-unknown-spv1.3/release/deps/shader.spv --output /Users/tulushev/Source/RainbowBridge/Metal/RainbowBridge/RainbowBridge\ Shared/fragment_shader.metal 
+	/Users/tulushev/Source/SPIRV-Cross/spirv-cross --msl --entry main_vs /Users/tulushev/Source/RainbowBridge/Metal/shader/target/spirv-unknown-spv1.3/release/deps/shader.spv --output /Users/tulushev/Source/RainbowBridge/Metal/RainbowBridge/RainbowBridge\ Shared/vertex_shader.metal 
