@@ -28,7 +28,7 @@ Some projects that I'm going to explore next:
 - `Xcode` (I used version 16, but may work on lower versions)
 
 ## Running
-- Clone the repo including submodules with `git clone --recurse-submodules -j8 git://github.com/tulushev/alternative.git` then `cd alternative`
+- Clone the repo including submodules with `git clone --recurse-submodules -j8 git@github.com:tulushev/alternative.git` then `cd alternative`
 - Run `just setup`. This will compile `rust-gpu` and `SPIRV-Cross` and will update the `shader` config to point to the correct directory of `rust-gpu`. This is done once
 - Run `just build`. This will compile Rust `shaders` using `rust-gpu`, transpile them to Metal using `SPIRV-Cross`, and place them into the project directory
 - Open alternative.xcodeproj, select `My Mac` as running target and hit the Play button, this will run the app
