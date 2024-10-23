@@ -7,3 +7,6 @@ build:
 	cd shader && cargo build --release
 	./SPIRV-Cross/spirv-cross --msl --entry main_fs ./shader/target/spirv-unknown-spv1.3/release/deps/shader.spv --output ./alternative/alternative/fragment_shader.metal 
 	./SPIRV-Cross/spirv-cross --msl --entry main_vs ./shader/target/spirv-unknown-spv1.3/release/deps/shader.spv --output ./alternative/alternative/vertex_shader.metal 
+
+open:
+	open alternative/alternative.xcodeproj
